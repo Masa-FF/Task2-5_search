@@ -11,6 +11,16 @@
 		<th>introduction</th>
 		<th><%= user.introduction %></th>
 	</tr>
+	
+	<tr>
+		<th>Follow</th>
+		<th><%= link_to "#{user.followings.count} フォロー" %></th>
+	</tr>
+		<tr>
+		<th>Follower</th>
+		<th><%= link_to "#{user.followers.count} フォロー" %></th>
+	</tr>
+	
 </table>
 
 <div class="row">
