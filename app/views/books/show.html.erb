@@ -13,7 +13,6 @@
 	
 		<div class="col-xs-9">
 			<h2>Book detail</h2>
-	
 			<table class="table">
 				<tr>
 					<td>
@@ -27,6 +26,22 @@
 					<% if @user.id == current_user.id %>
 					<td><%= link_to "Edit", edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
 					<td><%= link_to "Destroy", book_path(@book), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
+					<td>
+            <% if @book.favorited_by?(current_user) %>
+              <th>
+                <%= link_to book_favorites_path(@book), method: :delete do %>
+                  <i><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
+                  <%= @book.favorites.count %></th>
+                <% end %>
+            <% else %>
+              <th>
+                <%= link_to book_favorites_path(@book), method: :post do %>
+                  <i><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></i>
+                  <%= @book.favorites.count %>
+                <% end %>
+              </th>
+            <% end %>
+					</td>
 					<% end %>
 				</tr>
 			</table>
