@@ -1,0 +1,47 @@
+<div class="container"> 
+    <div class="row"> 
+        <div class="search_line"> 
+            <%= form_tag(search_path, :method => 'get') do %>
+                <%= text_field_tag :search %>
+                <%= select_tag(:option, options_for_select([["user", "1"],["book","2"]]))%> 
+                <%= submit_tag 'Search' %>
+            <% end %>
+        </div>
+    </div>
+    
+    <div class="row"> 
+        <% if @user_or_book == "1"%>
+            <h2>User</h2>
+            <% @users.each do |user| %>
+            <table class="table table-hover table-inverse">                
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                </tr>
+                <tr>
+                    <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
+                    <td><%= link_to user.name, user_path(user.id) %></td>
+                </tr>
+            </table>
+            <% end %>
+        
+        <% elsif @user_or_book == "2" %>
+            <h2>Book</h2>
+            
+            <% @books.each do |book| %>
+            <table class="table table-hover table-inverse">
+                <tr>
+                    <th>Title</th>
+                    <th>Text</th> 
+                </tr>    
+                <tr>
+                    <td><%= link_to book.title, book_path(book.id) %></td>
+                    <td><%= book.body %></td>
+                </tr>
+            </table>
+            <% end %>
+        <% else %>
+        <% end %>
+    </div>
+
+</div>

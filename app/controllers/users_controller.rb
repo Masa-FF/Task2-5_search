@@ -31,14 +31,29 @@ class UsersController < ApplicationController
     end
   end
   
-  def follows
-    user = User.find(params[:id])
-    @users = user.followings
+  def search
+    @user_or_book = params[:option]
+    if @user_or_book == "1"
+      @users = User.search(params[:search], @user_or_book)
+    else
+      @books = Book.search(params[:search], @user_or_book)
+    end
   end
-
-  def followers
-    user = User.find(params[:id])
-    @users = user.followers
+  
+  def User.search(search, user_or_book)
+      if user_or_book == "1"
+         User.where(['name LIKE ?', "%#{search}%"])
+      else
+         User.all
+      end
+  end
+  
+  def Book.search(search, user_or_book)
+    if user_or_book == "2"
+       Book.where(['title LIKE ?', "%#{search}%"])
+    else
+       Book.all
+    end
   end
   
 

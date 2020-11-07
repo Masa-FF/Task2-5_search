@@ -46,7 +46,8 @@ class BooksController < ApplicationController
     @book.destoy
     redirect_to books_path
   end
-
+  
+  
   private
 
   def book_params
