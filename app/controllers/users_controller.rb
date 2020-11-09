@@ -30,32 +30,7 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
-  
-  def search
-    @user_or_book = params[:option]
-    if @user_or_book == "1"
-      @users = User.search(params[:search], @user_or_book)
-    else
-      @books = Book.search(params[:search], @user_or_book)
-    end
-  end
-  
-  def User.search(search, user_or_book)
-      if user_or_book == "1"
-         User.where(['name LIKE ?', "%#{search}%"])
-      else
-         User.all
-      end
-  end
-  
-  def Book.search(search, user_or_book)
-    if user_or_book == "2"
-       Book.where(['title LIKE ?', "%#{search}%"])
-    else
-       Book.all
-    end
-  end
-  
+
 
   private
   def user_params
